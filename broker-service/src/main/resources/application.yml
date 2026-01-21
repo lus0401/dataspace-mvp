@@ -1,5 +1,10 @@
 server:
   port: 8082
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: true
+    include-stacktrace: always
 
 spring:
   application:
@@ -27,6 +32,7 @@ management:
 
 logging:
   level:
-    root: info
-    org.hibernate.SQL: debug
-    org.hibernate.orm.jdbc.bind: trace
+    org.springframework.web: DEBUG
+    org.springframework.web.servlet: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
