@@ -9,12 +9,13 @@ import org.springframework.security.web.SecurityFilterChain
 class SecurityConfig {
 
     @Bean
-    fun filterChain(http: HttpSecurity): SecurityFilterChain {
+    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .csrf { it.disable() }
             .authorizeHttpRequests {
-                it.requestMatchers("/hello", "/actuator/health", "/actuator/info").permitAll()
-                it.anyRequest().authenticated()
+                it
+                    .requestMatchers("/data", "/hello", "/actuator/**").permitAll()
+                    .anyRequest().authenticated()
             }
         return http.build()
     }
