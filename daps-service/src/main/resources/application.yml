@@ -15,3 +15,10 @@ logging:
   level:
     root: info
     org.springframework.security: info
+
+daps:
+  jwt:
+    issuer: "daps-service"
+    audience: "provider-service"
+    secret: "change-me-to-a-long-random-string-at-least-32-chars"
+    ttl-seconds: 3600

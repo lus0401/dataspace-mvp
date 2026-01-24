@@ -15,12 +15,11 @@ class SecurityConfig {
             .authorizeHttpRequests {
                 it.requestMatchers(
                     "/hello",
-                    "/actuator/health",
-                    "/actuator/info"
+                    "/token",
+                    "/actuator/**"
                 ).permitAll()
+                    .anyRequest().authenticated()
 
-                // MVP 단계에서는 전부 허용 (나중에 /token만 열어도 됨)
-                it.anyRequest().permitAll()
             }
 
         return http.build()
