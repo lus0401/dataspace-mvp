@@ -20,3 +20,6 @@ dataspace:
     base-url: "http://localhost:8081"
     client-id: "consumer-1"
     scope: "data:read"
+
+  clearinghouse:
+    base-url: "http://localhost:8085"

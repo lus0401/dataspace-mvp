@@ -1,5 +1,6 @@
 package com.example.dataspace.consumer
 
+import com.example.dataspace.consumer.clearinghouse.ClearinghouseClient
 import com.example.dataspace.consumer.daps.DapsClient
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -9,7 +10,8 @@ import org.springframework.web.client.RestClient
 @RestController
 class ConsumerController(
     private val restClient: RestClient,
-    private val dapsClient: DapsClient
+    private val dapsClient: DapsClient,
+    private val clearinghouseClient: ClearinghouseClient
 ) {
     // Broker의 OfferResponse와 동일 형태로 맞춤
     data class OfferResponse(
@@ -55,6 +57,13 @@ class ConsumerController(
                 .retrieve()
                 .body(Any::class.java)
 
+            // 성공 로깅
+            try {
+                clearinghouseClient.logSuccess(selected.providerUrl, selected.id)
+            } catch (_: Exception) {
+                // MVP 안정화를 위해 로깅 실패는 무시 (fetch는 성공 유지)
+            }
+
             mapOf(
                 "selectedOffer" to selected,
                 "providerDataUrl" to providerDataUrl,
@@ -62,6 +71,13 @@ class ConsumerController(
                 "providerResponse" to providerResponse
             )
         } catch (e: Exception) {
+            // 실패 로깅
+            try {
+                clearinghouseClient.logFailure(selected.providerUrl, selected.id, e.message)
+            } catch (_: Exception) {
+                // ignore
+            }
+
             mapOf(
                 "error" to "fetch failed",
                 "providerDataUrl" to providerDataUrl,
