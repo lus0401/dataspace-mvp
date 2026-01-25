@@ -14,9 +14,12 @@ class SecurityConfig {
             .csrf { it.disable() }
             .authorizeHttpRequests {
                 it
-                    .requestMatchers("/data", "/hello", "/actuator/**").permitAll()
+                    .requestMatchers("/actuator/**").permitAll()
+                    .requestMatchers("/data").authenticated()
                     .anyRequest().authenticated()
             }
+            .oauth2ResourceServer { it.jwt {} }
+
         return http.build()
     }
 }

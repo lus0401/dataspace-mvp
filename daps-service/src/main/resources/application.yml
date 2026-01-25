@@ -20,5 +20,5 @@ daps:
   jwt:
     issuer: "daps-service"
     audience: "provider-service"
-    secret: "change-me-to-a-long-random-string-at-least-32-chars"
+    secret: "dataspace-mvp-super-secret-key-2026-0123-very-long!!"
     ttl-seconds: 3600

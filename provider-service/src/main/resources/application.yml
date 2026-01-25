@@ -5,6 +5,12 @@ spring:
   application:
     name: provider-service
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          key-value: "dataspace-mvp-super-secret-key-2026-0123-very-long!!"
+
 management:
   endpoints:
     web:
@@ -14,4 +20,6 @@ management:
 logging:
   level:
     root: info
-    org.springframework.security: info
+    //org.springframework.security: info
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
