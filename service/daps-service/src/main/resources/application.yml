@@ -1,0 +1,24 @@
+server:
+  port: ${DAPS_PORT:8081}
+
+spring:
+  application:
+    name: daps-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    root: info
+    org.springframework.security: info
+
+daps:
+  jwt:
+    issuer: "${DAPS_JWT_ISSUER:daps-service}"
+    audience: "${DAPS_JWT_AUDIENCE:provider-service}"
+    secret: "${DAPS_JWT_SECRET}"
+    ttl-seconds: ${DAPS_JWT_TTL_SECONDS:3600}

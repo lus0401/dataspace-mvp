@@ -1,0 +1,25 @@
+server:
+  port: ${PROVIDER_PORT:8083}
+
+spring:
+  application:
+    name: provider-service
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # PROVIDER_JWT_KEY_VALUE 또는 DAPS_JWT_SECRET 미설정 시 로컬 개발용 기본값 사용
+          key-value: "${PROVIDER_JWT_KEY_VALUE:${DAPS_JWT_SECRET:-dataspace-mvp-super-secret-key-2026-0123-very-long!!}}"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    root: info
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG

@@ -1,0 +1,24 @@
+server:
+  port: ${CLEARINGHOUSE_PORT:8085}
+
+spring:
+  application:
+    name: clearinghouse-service
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:dataspace}
+    username: ${POSTGRES_USER:dataspace}
+    password: ${POSTGRES_PASSWORD:dataspace}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

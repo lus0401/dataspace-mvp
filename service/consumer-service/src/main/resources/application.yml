@@ -1,0 +1,25 @@
+server:
+  port: ${CONSUMER_PORT:8084}
+
+spring:
+  application:
+    name: consumer-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    root: info
+
+dataspace:
+  daps:
+    base-url: "${DAPS_BASE_URL:http://localhost:8081}"
+    client-id: "${DAPS_CONSUMER_CLIENT_ID:consumer-1}"
+    scope: "${DAPS_CONSUMER_SCOPE:data:read}"
+
+  clearinghouse:
+    base-url: "${CLEARINGHOUSE_BASE_URL:http://localhost:8085}"
